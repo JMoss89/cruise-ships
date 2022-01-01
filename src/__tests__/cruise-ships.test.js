@@ -11,3 +11,14 @@ describe ('Ship', () => {
         expect (ship.startingPort).toBe('Tianjin');
     })
 });
+
+describe ('setSail', () => {
+    // set up 
+    test ('returns falsy value of startingPort when call setSail method', () => {
+        const ship = new Ship ('Tianjin');
+        // exercise
+        ship.setSail();
+        //verify
+        expect (ship.startingPort).toBeFalsy();
+    });
+});
