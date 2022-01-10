@@ -17,7 +17,7 @@ describe('Ship', () => {
 
 describe('setSail', () => {
     // set up 
-    test('returns falsy value of startingPort when call setSail method', () => {
+    test('returns falsy value of currentPort when call setSail method', () => {
         const ship = new Ship('Tianjin');
         // exercise
         ship.setSail();
@@ -29,10 +29,8 @@ describe('setSail', () => {
 describe('dock', () => {
     test('it can dock at a different port', () => {
         const shanghai = new Port('Shanghai');
-        const ship = new Ship (shanghai);
-
-        const tianjin = new Port('Tianjin');
-        ship.dock(tianjin);
-        expect(ship.currentPort).toBe(tianjin);
+        const ship = new Ship ('Tianjin');
+        ship.dock(shanghai);
+        expect(ship.currentPort).toBe(shanghai);
     });
 });

@@ -7,7 +7,7 @@ describe('Port', () => {
         expect(port).toBeInstanceOf(Object);
     });
 
-    test('has a starting port', () => {
+    test('has a portName', () => {
         const port = new Port('Shanghai');
         expect(port.portName).toBe('Shanghai');
     })
