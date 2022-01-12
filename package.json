@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src",
+    "lint:create": "eslint --init"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,7 @@
   },
   "homepage": "https://github.com/JMoss89/cruise-ships#readme",
   "devDependencies": {
+    "eslint": "^8.6.0",
     "jest": "^27.4.5"
   }
 }
