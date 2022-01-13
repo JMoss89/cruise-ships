@@ -2,41 +2,34 @@ const Port = require("../port.js");
 const Ship = require("../ship.js");
 
 describe('Port', () => {
+    describe('with addShip and removeShip methods', () => {
+        let port;
+        let ship;
+        let shipOne;
+        let shipTwo;
 
-    test('returns an instance of Port', () => {
-        const port = new Port('Shanghai');
-        expect(port).toBeInstanceOf(Object);
-    });
+        beforeEach(() => {
+            port = new Port('Shanghai');
+            ship = {};
+            shipOne = {};
+            shipTwo = {};
+        });
 
-    test('has a portName', () => {
-        const port = new Port('Shanghai');
-        expect(port.portName).toBe('Shanghai');
-    });
-});
+        test('returns an instance of Port', () => {
+            expect(port).toBeInstanceOf(Object);
+        });
 
-describe('addShip', () => {
+        test('has a portName', () => {
+            expect(port.portName).toBe('Shanghai');
+        });
+    
+        test('can removes ship from the ships property', () => {
 
-    test('can adds a ship', () => {
-        const port = new Port('Shanghai');
-        const ship = {};
+            port.addShip(shipOne);
+            port.addShip(shipTwo);
+            port.removeShip(shipOne);
 
-        port.addShip(ship);
-
-        expect(port.ships).toContain(ship);
-    });
-});
-
-describe('removeShip', () => {
-
-    test('can removes ship from the ships property', () => {
-        const port = new Port('Shanghai');
-        const shipOne = {};
-        const shipTwo = {};
-
-        port.addShip(shipOne);
-        port.addShip(shipTwo);
-        port.removeShip(shipOne);
-
-        expect(port.ships).toEqual([shipTwo]);
+            expect(port.ships).toEqual([shipTwo]);
+        });
     });
 });
