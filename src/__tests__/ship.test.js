@@ -3,70 +3,54 @@ const Port = require("../port.js");
 const Itinerary = require('../itinerary.js');
 
 describe('Ship', () => {
+    describe('with ports and an itinerary', () => {
+        let ship;
+        let tianjin;
+        let shanghai;
+        let itinerary;
 
-    test('returns an instance of Ship', () => {
-        const port = new Port('Shanghai');
-        const itinerary = new Itinerary([port]);
-        const ship = new Ship(itinerary);
+        beforeEach(() => {
+            tianjin = new Port('Tianjin');
+            shanghai = new Port('Shanghai');
+            itinerary = new Itinerary([tianjin, shanghai]);
+            ship = new Ship(itinerary);
+        });
 
-        expect(ship).toBeInstanceOf(Object);
-    });
+        test('returns an instance of Ship', () => {
+            expect(ship).toBeInstanceOf(Object);
+        });
 
-    test('it has a starting port', () => {
-        const port = new Port('Shanghai');
-        const itinerary = new Itinerary([port]);
-        const ship = new Ship(itinerary);
+        test('it has a starting port', () => {
+            expect(ship.currentPort).toBe(tianjin);
+        });
 
-        expect(ship.currentPort).toBe(port);
-    });
+        test('it gets added to port on instantiation', () => {
+            expect(tianjin.ships).toContain(ship);
+        });
 
-    test('it gets added to port on instantiation', () => {
-        const port = new Port('Shanghai');
-        const itinerary = new Itinerary([port]);
-        const ship = new Ship(itinerary);
+        test('can set sail', () => {
+            
+            ship.setSail();
 
-        expect(port.ships).toContain(ship);
-    });
-});
+            expect(ship.currentPort).toBeFalsy();
+            expect(tianjin.ships).not.toContain(ship);
+        });
 
-describe('setSail', () => {
+        test('can dock at a different port', () => {
+            
+            ship.setSail();
+            ship.dock();
+
+            expect(ship.currentPort).toBe(shanghai);
+            expect(shanghai.ships).toContain(ship);
+        });
+
+        test('it can\'t sail further than its itinerary', () => {
+          
+            ship.setSail();
+            ship.dock();
     
-    test('can set sail', () => {
-        const tianjin = new Port('Tianjin');
-        const shanghai = new Port('Shanghai');
-        const itinerary = new Itinerary([tianjin, shanghai]);
-        const ship = new Ship(itinerary);
-
-        ship.setSail();
-
-        expect(ship.currentPort).toBeFalsy();
-        expect(tianjin.ships).not.toContain(ship);
-    });
-});
-
-describe('dock', () => {
-    test('can dock at a different port', () => {
-        const tianjin = new Port('Tianjin');
-        const shanghai = new Port('Shanghai');
-        const itinerary = new Itinerary([tianjin, shanghai]);
-        const ship = new Ship(itinerary);
-
-        ship.setSail();
-        ship.dock();
-
-        expect(ship.currentPort).toBe(shanghai);
-        expect(shanghai.ships).toContain(ship);
-    });
-
-    test('it can\'t sail further than its itinerary', () => {
-        const tianjin = new Port('Tianjin');
-        const shanghai = new Port('Shanghai');
-        const itinerary = new Itinerary([tianjin, shanghai]);
-        const ship = new Ship(itinerary);
-
-        ship.setSail();
-        ship.dock();
-
-        expect(() => ship.setSail()).toThrowError('End of itinerary reached');
+            expect(() => ship.setSail()).toThrowError('End of itinerary reached');
+        });
     });
 });
