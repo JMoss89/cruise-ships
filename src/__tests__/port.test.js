@@ -1,5 +1,4 @@
 const Port = require("../port.js");
-const Ship = require("../ship.js");
 
 describe('Port', () => {
     describe('with addShip and removeShip methods', () => {
@@ -10,9 +9,9 @@ describe('Port', () => {
 
         beforeEach(() => {
             port = new Port('Shanghai');
-            ship = {};
-            shipOne = {};
-            shipTwo = {};
+            ship = jest.fn();
+            shipOne = jest.fn();
+            shipTwo = jest.fn();
         });
 
         test('returns an instance of Port', () => {

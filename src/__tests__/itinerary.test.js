@@ -1,19 +1,19 @@
 const Itinerary = require('../itinerary.js');
-const Port = require('../port.js');
 
 describe('Itinerary', () => {
+    describe('constructor', () => {
+        let itinerary;
 
-    test('return an instance of Itinerary', () => {
-        const itinerary = new Itinerary(jest.fn());
-        expect(itinerary).toBeInstanceOf(Object);
+        beforeEach(() => {
+            itinerary = new Itinerary(jest.fn());//dummy
+        });
+
+        test('return an instance of Itinerary', () => {
+            expect(itinerary).toBeInstanceOf(Object);
+        });
+
+        test('has ports property', () => {
+            expect(itinerary).toHaveProperty('ports');
+        });
     });
-
-    test('has ports property', () => {
-        const london = new Port('London');
-		const liverpool = new Port('Liverpool');
-
-		const itinerary = new Itinerary([london, liverpool]);
-        expect(itinerary.ports).toEqual([london, liverpool]);
-    });
-
-})
+});
