@@ -18,7 +18,15 @@ describe('Ship', () => {
         const ship = new Ship(itinerary);
 
         expect(ship.currentPort).toBe(port);
-    })
+    });
+
+    test('it gets added to port on instantiation', () => {
+        const port = new Port('Shanghai');
+        const itinerary = new Itinerary([port]);
+        const ship = new Ship(itinerary);
+
+        expect(port.ships).toContain(ship);
+    });
 });
 
 describe('setSail', () => {
@@ -32,7 +40,7 @@ describe('setSail', () => {
         ship.setSail();
 
         expect(ship.currentPort).toBeFalsy();
-        expect(ship.previousPort).toBe(tianjin);
+        expect(tianjin.ships).not.toContain(ship);
     });
 });
 
@@ -47,6 +55,7 @@ describe('dock', () => {
         ship.dock();
 
         expect(ship.currentPort).toBe(shanghai);
+        expect(shanghai.ships).toContain(ship);
     });
 
     test('it can\'t sail further than its itinerary', () => {
@@ -59,5 +68,5 @@ describe('dock', () => {
         ship.dock();
 
         expect(() => ship.setSail()).toThrowError('End of itinerary reached');
-    })
+    });
 });
